@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Jog Times - Edit Time</title>
+
+    <!-- Tailwind.css is a CSS library. Read the docs here: -->
+    <!-- https://tailwindcss.com/docs/what-is-tailwind -->
+    <link rel="stylesheet" href="/tailwind.css" />
+  </head>
+  <body class="bg-grey-lightest">
+    <header class="fixed pin-x pin-t bg-purple shadow text-white">
+		<div class="mx-auto h-16 p-4 flex items-center justify-between">
+			<h2>
+				<a href="/times" class="text-white no-underline">Jog Times</a>
+			</h2>
+			<div>
+				Signed in as {{ user.name }} ({{ user.email }})
+				<a href="/timeline" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Timeline
+				</a>
+				<a href="/rankings" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Rankings
+				</a>
+				<a href="/times" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Times
+				</a>
+				<a href="/following" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Following
+				</a>
+				<a href="/followers" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Followers
+				</a>
+				<a href="/sign-out" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Sign Out
+				</a>
+				<a href="/delete-account" class="text-red-light border border-red rounded p-2 no-underline hover:underline ml-4">
+					Delete account
+				</a>
+			</div>
+		</div>
+	</header>
+
+    <main class="h-screen flex flex-col items-center justify-center">
+      <form
+        class="m-4 shadow-lg rounded-lg overflow-hidden w-64"
+        method="POST"
+        action="/times/{{ time.id }}"
+      >
+        <h1 class="text-2xl bg-grey-lighter p-4">Edit time</h1>
+
+        <label class="m-4 block">
+          Date
+          <input
+            class="block rounded bg-grey-lighter p-2 mt-2 w-full"
+            type="datetime-local"
+            name="startTime"
+            value="{{ time.startTime }}"
+            required
+          />
+        </label>
+
+        <label class="m-4 block">
+          Distance (km)
+          <input
+            class="block rounded bg-grey-lighter p-2 mt-2 w-full"
+            type="number"
+            name="distance"
+            value="{{ time.distance }}"
+            required
+          />
+        </label>
+
+        <label class="m-4 block">
+          Duration (hrs)
+          <input
+            class="block rounded bg-grey-lighter p-2 mt-2 w-full"
+            type="number"
+            name="duration"
+            value="{{ time.duration }}"
+            required
+          />
+        </label>
+
+        <button
+          type="submit"
+          class="block w-auto rounded bg-purple text-white p-2 m-4 ml-auto"
+        >
+          Create Time →
+        </button>
+      </form>
+      <a
+        href="/times/{{ time.id }}/delete"
+        class="block mt-8 text-red-light no-underline hover:underline"
+      >
+        Delete time
+      </a>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Jog Times - Sign In</title>
+
+    <!-- Tailwind.css is a CSS library. Read the docs here: -->
+    <!-- https://tailwindcss.com/docs/what-is-tailwind -->
+    <link rel="stylesheet" href="/tailwind.css" />
+  </head>
+  <body>
+    <main class="h-screen flex flex-col items-center justify-center ">
+      <form
+        class="m-4 shadow-lg rounded-lg overflow-hidden w-64"
+        method="POST"
+        action="/sign-in"
+      >
+        <h1 class="text-2xl bg-grey-lighter p-4">Sign In</h1>
+
+        {{#if errorMessage}}
+        <div class="bg-red-lightest text-red-dark p-4">{{ errorMessage }}</div>
+        {{/if}}
+
+        <label class="m-4 block">
+          Email Address
+          <input
+            class="block rounded bg-grey-lighter p-2 mt-2 w-full"
+            type="email"
+            name="email"
+            required
+          />
+        </label>
+
+        <label class="m-4 block">
+          Password
+          <input
+            class="block rounded bg-grey-lighter p-2 mt-2 w-full"
+            type="password"
+            name="password"
+            required
+          />
+        </label>
+
+        <button
+          type="submit"
+          class="block w-auto rounded bg-purple text-white p-2 m-4 ml-auto"
+        >
+          Sign In →
+        </button>
+      </form>
+      <a
+        href="/create-account"
+        class="block mt-8 text-purple-light no-underline hover:underline"
+      >
+        Create an account
+      </a>
+    </main>
+  </body>
+</html>

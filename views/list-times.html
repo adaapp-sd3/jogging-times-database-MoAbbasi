@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Jog Times</title>
+
+    <!-- Tailwind.css is a CSS library. Read the docs here: -->
+    <!-- https://tailwindcss.com/docs/what-is-tailwind -->
+    <link rel="stylesheet" href="/tailwind.css" />
+  </head>
+  <body class="bg-grey-lightest">
+    <header class="fixed pin-x pin-t bg-purple shadow text-white">
+		<div class="mx-auto h-16 p-4 flex items-center justify-between">
+			<h2>
+				<a href="/times" class="text-white no-underline">Jog Times</a>
+			</h2>
+			<div>
+				Signed in as {{ user.name }} ({{ user.email }})
+				<a href="/timeline" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Timeline
+				</a>
+				<a href="/rankings" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Rankings
+				</a>
+				<a href="/times" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Times
+				</a>
+				<a href="/following" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Following
+				</a>
+				<a href="/followers" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Followers
+				</a>
+				<a href="/sign-out" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Sign Out
+				</a>
+				<a href="/delete-account" class="text-red-light border border-red rounded p-2 no-underline hover:underline ml-4">
+					Delete account
+				</a>
+			</div>
+		</div>
+	</header>
+
+    <main
+      style="width: 800px"
+      class="mx-auto mt-16 pt-4 flex flex-col justify-center"
+    >
+		{{#unless isUser}}
+		<section class="flex items-center mb-4">
+			<div class="text-5xl mt-2 w-1/4 m-4 p-5">
+				{{ visitee.name }}
+				
+			</div>
+			<div class="w-1/2"></div>
+			{{#if follows}}
+				<a
+				  href="/follow/{{ visitee.id }}"
+				  class="inline-block w-1/4 m-4 p-5  bg-purple-light shadow rounded-lg text-3xl text-white no-underline justify-center text-center"
+				>
+				  Unfollow
+				</a>
+			{{else}}
+				<a
+				  href="/follow/{{ visitee.id }}"
+				  class="inline-block w-1/4 m-4 p-5  bg-purple-light shadow rounded-lg text-3xl text-white no-underline justify-center text-center"
+				>
+				  Follow
+				</a>
+			{{/if}}
+		</section>
+		{{/unless}}
+      <section class="flex items-center">
+        <div
+          class="m-4 p-6 rounded-lg bg-white flex-1 shadow flex flex-col-reverse"
+        >
+          <h3 class="uppercase text-sm text-indigo-light font-semibold">
+            Total Distance
+          </h3>
+          <div class="text-5xl text-indigo font-semibold">
+            {{ stats.totalDistance }}
+            <span class="text-grey-dark uppercase text-base -ml-2">km</span>
+          </div>
+        </div>
+
+        <div
+          class="m-4 p-6 rounded-lg bg-white flex-1 shadow flex flex-col-reverse"
+        >
+          <h3 class="uppercase text-sm text-blue-light font-semibold">
+            Total Time
+          </h3>
+          <div class="text-5xl text-blue font-semibold">
+            {{ stats.totalTime }}
+            <span class="text-grey-dark uppercase text-base -ml-2">hrs</span>
+          </div>
+        </div>
+
+        <div
+          class="m-4 p-6 rounded-lg bg-white flex-1 shadow flex flex-col-reverse"
+        >
+          <h3 class="uppercase text-sm text-teal-light font-semibold">
+            Average Speed
+          </h3>
+          <div class="text-5xl text-teal font-semibold">
+            {{ stats.avgSpeed }}
+            <span class="text-grey-dark uppercase text-base -ml-2">km/h</span>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="flex flex-wrap border border-grey-light border-l-0 border-r-0 border-b-0 mt-6 pt-6"
+      >
+		{{#if isUser}}
+        <a
+          href="/times/new"
+          class="flex-auto w-64 m-4 p-5 bg-purple-light shadow rounded-lg text-3xl text-white no-underline flex items-center justify-center text-center"
+        >
+          Add new time
+        </a>
+		{{/if}}
+		
+        {{#each times}}
+        <a
+          class="flex-auto w-64 m-4 p-5 bg-white shadow rounded-lg text-black no-underline"
+          href="/times/{{ id }}"
+        >
+          <h3 class="text-grey-darker uppercase text-base font-normal">
+            {{ startTime }}
+          </h3>
+          <p class="text-xl mt-2">
+            {{ distance }}
+            <span
+              class="uppercase text-sm text-grey-darker font-semibold -ml-1"
+            >
+              km
+            </span>
+            in {{ duration }}
+            <span
+              class="uppercase text-sm text-grey-darker font-semibold -ml-1"
+            >
+              hrs
+            </span>
+          </p>
+          <p class="text-xl mt-1">
+            Avg. speed: {{ avgSpeed }}
+            <span
+              class="uppercase text-sm text-grey-darker font-semibold -ml-1"
+            >
+              km/hr
+            </span>
+          </p>
+        </a>
+		{{/each}}
+      </section>
+    </main>
+  </body>
+</html>

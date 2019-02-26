@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Jog Times</title>
+
+    <!-- Tailwind.css is a CSS library. Read the docs here: -->
+    <!-- https://tailwindcss.com/docs/what-is-tailwind -->
+    <link rel="stylesheet" href="/tailwind.css" />
+  </head>
+  <body class="bg-grey-lightest">
+    <header class="fixed pin-x pin-t bg-purple shadow text-white">
+		<div class="mx-auto h-16 p-4 flex items-center justify-between">
+			<h2>
+				<a href="/times" class="text-white no-underline">Jog Times</a>
+			</h2>
+			<div>
+				Signed in as {{ user.name }} ({{ user.email }})
+				<a href="/timeline" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Timeline
+				</a>
+				<a href="/rankings" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Rankings
+				</a>
+				<a href="/times" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Times
+				</a>
+				<a href="/following" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Following
+				</a>
+				<a href="/followers" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Followers
+				</a>
+				<a href="/sign-out" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Sign Out
+				</a>
+				<a href="/delete-account" class="text-red-light border border-red rounded p-2 no-underline hover:underline ml-4">
+					Delete account
+				</a>
+			</div>
+		</div>
+	</header>
+
+    <main
+      style="width: 800px"
+      class="mx-auto mt-16 pt-4 flex flex-wrap justify-center"
+    >
+		<section class="flex items-center mb-4">
+			<div class="text-5xl mt-2 m-4 p-5">
+				{{ criteria }} rankings
+			</div>
+		</section>
+		<section class="flex items-center mb-4">
+				<a href="/rankings/speed" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Speed rankings
+				</a>
+				<a href="/rankings/distance" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Distance rankings
+				</a>
+				<a href="/rankings/time" class="text-white border border-white rounded p-2 no-underline hover:bg-purple-light ml-4">
+					Time rankings
+				</a>
+		</section>
+		<section class="flex items-center mb-4">
+	  {{#each stats}}
+        <a
+		  href="/user/{{ id }}"
+          class="flex-auto w-64 m-4 p-5 bg-purple-light shadow rounded-lg text-3xl text-white no-underline items-center justify-center"
+        >
+		  <p class="text-center text-4xl">
+            #{{ rank }}. {{ name }}
+		  </p>
+		  <p class="text-sm mt-2">
+            {{ totalDistance }}
+            <span
+              class="uppercase text-sm text-grey-darker font-semibold -ml-1"
+            >
+              km
+            </span>
+            in {{ totalTime }}
+            <span
+              class="uppercase text-sm text-grey-darker font-semibold -ml-1"
+            >
+              hrs
+            </span>
+          </p>
+          <p class="text-sm mt-1">
+            Avg. speed: {{ avgSpeed }}
+            <span
+              class="uppercase text-sm text-grey-darker font-semibold -ml-1"
+            >
+              km/hr
+            </span>
+          </p>
+        </a>
+		{{else}}
+			<div class="flex-auto text-xl m-1 text-center">{{ emptyMsg }}</div>
+	    {{/each}}
+		</section>
+    </main>
+  </body>
+</html>
